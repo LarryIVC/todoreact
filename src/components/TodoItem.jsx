@@ -2,6 +2,7 @@ import styles from '@/styles/TodoItem.module.css';
 import { useState, useRef  } from 'react';
 import { FaTrash } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
+import propTypes from 'prop-types';
 
 const TodoItem = ({ itemProp , handleChange, delTodo, setUpdate}) => {
   const [editing, setEditing] = useState(false);
@@ -25,7 +26,7 @@ const TodoItem = ({ itemProp , handleChange, delTodo, setUpdate}) => {
 
   const handleUpdatedDone = (event) => {
     if (event.key === 'Enter') {
-      // setUpdate(editInputRef.current.value, itemProp.id);
+      setUpdate(editInputRef.current.value, itemProp.id);
       setEditing(false);
     }
   };
@@ -58,4 +59,16 @@ const TodoItem = ({ itemProp , handleChange, delTodo, setUpdate}) => {
     </li>
   );
 };
+
+TodoItem.propTypes = {
+   itemProp: propTypes.shape({
+    id: propTypes.string.isRequired,
+    title: propTypes.string.isRequired,
+    completed: propTypes.bool.isRequired,
+   }).isRequired, 
+   handleChange: propTypes.func.isRequired, 
+   delTodo: propTypes.func.isRequired, 
+   setUpdate: propTypes.func.isRequired
+  };
+
 export default TodoItem;
